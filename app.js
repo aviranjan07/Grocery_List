@@ -24,14 +24,14 @@ function addItem(e) {
 
     const id = new Date().getTime().toString();
     if(value && !editFlag) {
-        const element = document.createElement("article");
-        // add class
-        element.classList.add("grocery-item");
-        // add id
-        const attr = document.createAttribute("data-id");
-        attr.value = id;
-        element.setAttributeNode(attr);
-        element.innerHTML = `<p class="title">${value}</p>
+const element = document.createElement("article");
+// add class
+element.classList.add("grocery-item");
+// add id
+const attr = document.createAttribute("data-id");
+attr.value = id;
+element.setAttributeNode(attr);
+element.innerHTML = `<p class="title">${value}</p>
         <div class="btn-container">
           <button type="button" class="edit-btn">
             <i class="fas fa-edit"></i>
@@ -40,16 +40,20 @@ function addItem(e) {
             <i class="fas fa-trash"></i>
           </button>
         </div>`;
-        // append child
-        list.appendChild(element);
-        // display alert
-        displayAlert("item added to the list", "success");
-        // show container 
-        container.classList.add("show-container");
-        // add to local storage
-        addToLocalStorage(id, value);
-        // set back to default
-        setBackToDefault();
+const deleteBtn = element.querySelector(".delete-btn");
+const editBtn = element.querySelector(".edit-btn");
+deleteBtn.addEventListener("click", deleteItem);
+editBtn.addEventListener("click", editItem);
+// append child
+list.appendChild(element);
+// display alert
+displayAlert("item added to the list", "success");
+// show container 
+container.classList.add("show-container");
+// add to local storage
+addToLocalStorage(id, value);
+// set back to default
+setBackToDefault();
     } else if (value && editFlag) {
         console.log("editing");
     } else {
@@ -80,6 +84,20 @@ function clearItems() {
   container.classList.remove("show-container");
   displayAlert("empty list", "danger");
   setBackToDefault();
+}
+// delete function
+function deleteItem(e) {
+ const element = e.currentTarget.parentElement.parentElement;
+ list.removeChild(element);
+ if(list.children.length === 0) {
+   container.classList.remove("show-container");
+ }
+ displayAlert("item removed", "danger");
+ setBackToDefault();
+}
+// edit function
+function editItem() {
+  console.log("edit item");
 }
 // set back to default
 function setBackToDefault() {
