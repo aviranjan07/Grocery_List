@@ -88,12 +88,15 @@ function clearItems() {
 // delete function
 function deleteItem(e) {
  const element = e.currentTarget.parentElement.parentElement;
+ const id = element.dataset.id;
  list.removeChild(element);
  if(list.children.length === 0) {
    container.classList.remove("show-container");
  }
  displayAlert("item removed", "danger");
  setBackToDefault();
+//  delete from local storage 
+// removeFromLocalStroage(id);
 }
 // edit function
 function editItem() {
@@ -109,7 +112,9 @@ function setBackToDefault() {
 
 // ****** LOCAL STORAGE **********
 function addToLocalStorage(id, value) {
-  console.log("added to local storage");
+  // console.log("added to local storage");
 }
-
+function removeFromLocalStroage(id) {
+  
+}
 // ****** SETUP ITEMS **********
